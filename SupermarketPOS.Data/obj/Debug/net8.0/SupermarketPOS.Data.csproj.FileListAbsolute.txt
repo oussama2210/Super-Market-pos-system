@@ -1,0 +1,17 @@
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\bin\Debug\net8.0\SupermarketPOS.Data.deps.json
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\bin\Debug\net8.0\SupermarketPOS.Data.runtimeconfig.json
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\bin\Debug\net8.0\SupermarketPOS.Data.dll
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\bin\Debug\net8.0\SupermarketPOS.Data.pdb
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\bin\Debug\net8.0\SupermarketPOS.Core.dll
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\bin\Debug\net8.0\SupermarketPOS.Core.pdb
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\obj\Debug\net8.0\SupermarketPOS.Data.csproj.AssemblyReference.cache
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\obj\Debug\net8.0\SupermarketPOS.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\obj\Debug\net8.0\SupermarketPOS.Data.AssemblyInfoInputs.cache
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\obj\Debug\net8.0\SupermarketPOS.Data.AssemblyInfo.cs
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\obj\Debug\net8.0\SupermarketPOS.Data.csproj.CoreCompileInputs.cache
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\obj\Debug\net8.0\Supermar.9CD468F9.Up2Date
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\obj\Debug\net8.0\SupermarketPOS.Data.dll
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\obj\Debug\net8.0\refint\SupermarketPOS.Data.dll
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\obj\Debug\net8.0\SupermarketPOS.Data.pdb
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\obj\Debug\net8.0\SupermarketPOS.Data.genruntimeconfig.cache
+C:\Users\Dz1634\Desktop\super\SupermarketPOS.Data\obj\Debug\net8.0\ref\SupermarketPOS.Data.dll

@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "SupermarketPOS.Reports/1.0.0": {
+        "dependencies": {
+          "SupermarketPOS.Core": "1.0.0"
+        },
+        "runtime": {
+          "SupermarketPOS.Reports.dll": {}
+        }
+      },
+      "SupermarketPOS.Core/1.0.0": {
+        "runtime": {
+          "SupermarketPOS.Core.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SupermarketPOS.Reports/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SupermarketPOS.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

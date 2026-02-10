@@ -1,0 +1,154 @@
+<Page x:Class="SupermarketPOS.UI.Views.ReportsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SupermarketPOS.UI.Views"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1200"
+      Title="Reports">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="Sales Reports" FontSize="24" FontWeight="Bold" Margin="0,0,0,24"/>
+
+        <!-- Filters -->
+        <materialDesign:Card Grid.Row="1" Margin="0,0,0,16" Padding="16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <DatePicker Grid.Column="0" 
+                           SelectedDate="{Binding StartDate}"
+                           materialDesign:HintAssist.Hint="Start Date"
+                           Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                           Margin="0,0,8,0"/>
+
+                <DatePicker Grid.Column="1" 
+                           SelectedDate="{Binding EndDate}"
+                           materialDesign:HintAssist.Hint="End Date"
+                           Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                           Margin="0,0,8,0"/>
+
+                <Button Grid.Column="2" 
+                       Command="{Binding GenerateReportCommand}"
+                       Style="{StaticResource MaterialDesignRaisedButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ChartLine" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="GENERATE REPORT" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </materialDesign:Card>
+
+        <!-- Report Content -->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Summary Cards -->
+            <Grid Grid.Row="0" Margin="0,0,0,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Total Sales -->
+                <materialDesign:Card Grid.Column="0" Margin="0,0,8,0" Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="TOTAL SALES" FontSize="12" Opacity="0.6"/>
+                        <TextBlock Text="{Binding TotalSales, StringFormat=C2}" 
+                                  FontSize="28" FontWeight="Bold" 
+                                  Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Total Transactions -->
+                <materialDesign:Card Grid.Column="1" Margin="0,0,8,0" Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="TRANSACTIONS" FontSize="12" Opacity="0.6"/>
+                        <TextBlock Text="{Binding TotalTransactions}" 
+                                  FontSize="28" FontWeight="Bold"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Average Sale -->
+                <materialDesign:Card Grid.Column="2" Margin="0,0,8,0" Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="AVERAGE SALE" FontSize="12" Opacity="0.6"/>
+                        <TextBlock Text="{Binding AverageSale, StringFormat=C2}" 
+                                  FontSize="28" FontWeight="Bold"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Total Profit -->
+                <materialDesign:Card Grid.Column="3" Padding="16">
+                    <StackPanel>
+                        <TextBlock Text="TOTAL PROFIT" FontSize="12" Opacity="0.6"/>
+                        <TextBlock Text="{Binding TotalProfit, StringFormat=C2}" 
+                                  FontSize="28" FontWeight="Bold" 
+                                  Foreground="Green"/>
+                    </StackPanel>
+                </materialDesign:Card>
+            </Grid>
+
+            <!-- Sales Details -->
+            <materialDesign:Card Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <DockPanel Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}" 
+                              Margin="16,16,16,8">
+                        <TextBlock Text="SALES DETAILS" FontWeight="Bold" FontSize="16" 
+                                  DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                        <Button Command="{Binding ExportReportCommand}"
+                               Style="{StaticResource MaterialDesignOutlinedButton}"
+                               DockPanel.Dock="Right">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="FileExport" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock Text="EXPORT" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding SalesData}"
+                             AutoGenerateColumns="False" 
+                             CanUserAddRows="False"
+                             IsReadOnly="True"
+                             SelectionMode="Single"
+                             Margin="16,0,16,16"
+                             materialDesign:DataGridAssist.CellPadding="8">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Sale ID" Binding="{Binding SaleID}" Width="80"/>
+                            <DataGridTextColumn Header="Date" Binding="{Binding SaleDate, StringFormat=dd/MM/yyyy HH:mm}" Width="150"/>
+                            <DataGridTextColumn Header="Customer" Binding="{Binding Customer.Name}" Width="*"/>
+                            <DataGridTextColumn Header="Items" Binding="{Binding ItemCount}" Width="80"/>
+                            <DataGridTextColumn Header="Subtotal" Binding="{Binding SubTotal, StringFormat=C2}" Width="100"/>
+                            <DataGridTextColumn Header="Tax" Binding="{Binding TaxAmount, StringFormat=C2}" Width="80"/>
+                            <DataGridTextColumn Header="Discount" Binding="{Binding DiscountAmount, StringFormat=C2}" Width="100"/>
+                            <DataGridTextColumn Header="Total" Binding="{Binding TotalAmount, StringFormat=C2}" Width="100" FontWeight="Bold"/>
+                            <DataGridTextColumn Header="Payment" Binding="{Binding PaymentMethod}" Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+    </Grid>
+</Page>

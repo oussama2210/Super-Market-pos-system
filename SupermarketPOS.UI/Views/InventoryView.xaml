@@ -1,0 +1,116 @@
+<Page x:Class="SupermarketPOS.UI.Views.InventoryView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SupermarketPOS.UI.Views"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1200"
+      Title="Inventory Management">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Toolbar -->
+        <materialDesign:Card Grid.Row="0" Margin="0,0,0,16" Padding="16">
+            <DockPanel>
+                <Button Command="{Binding AdjustStockCommand}"
+                       Style="{StaticResource MaterialDesignRaisedButton}"
+                       DockPanel.Dock="Right" Margin="8,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="PackageVariant" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="ADJUST STOCK" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Command="{Binding RefreshCommand}"
+                       Style="{StaticResource MaterialDesignOutlinedButton}"
+                       DockPanel.Dock="Right" Margin="8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Refresh" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="REFRESH" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                        materialDesign:HintAssist.Hint="Search inventory..."
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        MinWidth="300"/>
+            </DockPanel>
+        </materialDesign:Card>
+
+        <!-- Inventory DataGrid -->
+        <materialDesign:Card Grid.Row="1">
+            <DataGrid ItemsSource="{Binding InventoryItems}"
+                     SelectedItem="{Binding SelectedItem}"
+                     AutoGenerateColumns="False" 
+                     CanUserAddRows="False"
+                     SelectionMode="Single"
+                     materialDesign:DataGridAssist.CellPadding="8"
+                     materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Product ID" Binding="{Binding ProductID}" Width="80"/>
+                    <DataGridTextColumn Header="Product Name" Binding="{Binding Product.Name}" Width="*"/>
+                    <DataGridTextColumn Header="Code" Binding="{Binding Product.ShortCode}" Width="80"/>
+                    <DataGridTextColumn Header="Category" Binding="{Binding Product.Category.Name}" Width="120"/>
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding QuantityOnHand}" Width="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsLowStock}" Value="True">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Min Level" Binding="{Binding MinimumLevel}" Width="100"/>
+                    <DataGridTextColumn Header="Max Level" Binding="{Binding MaximumLevel}" Width="100"/>
+                    <DataGridTextColumn Header="Reorder Level" Binding="{Binding ReorderLevel}" Width="120"/>
+                    <DataGridTemplateColumn Header="Status" Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <materialDesign:Chip>
+                                    <materialDesign:Chip.Style>
+                                        <Style TargetType="materialDesign:Chip">
+                                            <Setter Property="Content" Value="In Stock"/>
+                                            <Setter Property="Background" Value="Green"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsLowStock}" Value="True">
+                                                    <Setter Property="Content" Value="Low Stock"/>
+                                                    <Setter Property="Background" Value="Orange"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsOutOfStock}" Value="True">
+                                                    <Setter Property="Content" Value="Out of Stock"/>
+                                                    <Setter Property="Background" Value="Red"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </materialDesign:Chip.Style>
+                                </materialDesign:Chip>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Actions" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource MaterialDesignIconButton}"
+                                       Command="{Binding DataContext.AdjustStockCommand, 
+                                                RelativeSource={RelativeSource AncestorType=Page}}"
+                                       CommandParameter="{Binding}"
+                                       ToolTip="Adjust Stock">
+                                    <materialDesign:PackIcon Kind="PackageVariant"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </materialDesign:Card>
+    </Grid>
+</Page>
